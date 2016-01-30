@@ -36,7 +36,6 @@ public class PlayerMan : MonoBehaviour {
         currentSeq = "";
         beat = 60.0f / bpm;
 
-
         // Translation of directions to move vectors
         moveList = new Dictionary<string, string>();
         moveVectors = new Dictionary<char, Vector3>();
@@ -51,8 +50,8 @@ public class PlayerMan : MonoBehaviour {
             string[] mt = line.Split(':');
             moveList[mt[1]] = mt[0];
         }
-        levelLogic = GetComponent<LevelLogic>();
         levelLoader = GetComponent<LoadLevel>();
+		levelLogic = levelLoader.GetLevelController ();
     }
 
     private char getMyKeyCode()

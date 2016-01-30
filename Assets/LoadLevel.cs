@@ -20,12 +20,17 @@ public class LoadLevel : MonoBehaviour {
 
 	public GameObject player;
 
+	public LevelLogic GetLevelController()
+	{
+		return levelController;
+	}
+
 	// Use this for initialization    
 	void Start ()
 	{
 		if (null == levelController)
 		{
-			levelController = GetComponent<LevelLogic>();
+			levelController = new LevelLogic();
 			levelController.createEmptyLevel(16, 16);
 		}
 		playerController = GetComponent<PlayerMan>();

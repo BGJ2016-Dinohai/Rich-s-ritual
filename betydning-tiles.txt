@@ -7,4 +7,4 @@ d - Dør
 v - Vegg
 l - Lava
 g - Gulv
-Blank felt betyr utenfor brettet
+0 - utenfor brettet

@@ -12,6 +12,7 @@ public class PlayerMan : MonoBehaviour {
     public TextAsset moveText;
 
     public Transform ply;
+    private Animator playerAnim;
     private float spriteHeight;
     private string currentSeq;
 
@@ -20,9 +21,12 @@ public class PlayerMan : MonoBehaviour {
 
     public void instantiatePlayer(Vector3 position, int xPosition, int yPosition)
     {
-       x = xPosition;
-       y = yPosition;
-       ply = Instantiate(player, position, Quaternion.identity) as Transform;
+        x = xPosition;
+        y = yPosition;
+        ply = Instantiate(player, position, Quaternion.identity) as Transform;
+        playerAnim = ply.GetComponent<Animator>();
+        playerAnim.SetTrigger("idle");
+        Debug.Log("Set idle");
         Debug.Log(string.Format("Instantiated player at ({0},{1})", x, y));
     }
     // Use this for initialization

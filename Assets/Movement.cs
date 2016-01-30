@@ -4,9 +4,11 @@ using System;
 using System.Text;
 
 public class Movement : MonoBehaviour {
+
     public TextAsset text;
     public float moveSpeed = 0.1f;
-
+    public Transform[] tiles;
+    
     Vector2 moveVector;
 
 	// Use this for initialization
@@ -49,9 +51,7 @@ public class Movement : MonoBehaviour {
             case "l": retVal = "Lava"; break;
             case "g": retVal = "Gulv"; break;
             case "0": retVal = "Utenfor"; break;
-            case "": retVal = "Utenfor"; break;
-            case "\r":retVal = "SLASH R ! ;_;"; break;
-            case null: retVal = "NULL"; break;
+            case "": retVal = "Gulv"; break;            
             default: throw new Exception(string.Format("tile specifier {0} {1} is not valid", tileName, Convert.ToInt32(tileName.ToCharArray()[0])));
         }
         return retVal;

@@ -13,7 +13,7 @@ public class PlayerMan : MonoBehaviour {
     public Transform player;
 
     public float bpm;
-
+    private float offset;
     private string currentSeq;
 
     private IDictionary<string, string> moveList;
@@ -35,6 +35,7 @@ public class PlayerMan : MonoBehaviour {
     void Start () {
         currentSeq = "";
         beat = 60.0f / bpm;
+        offset = Time.time % (beat);
 
 
         // Translation of directions to move vectors
@@ -139,7 +140,7 @@ public class PlayerMan : MonoBehaviour {
             return;
         }
 
-        float modtime = (1.0f / beat * ((Time.time - beat / 2) % beat));
+        float modtime = (1.0f / beat * (((Time.time+offset) - beat / 2) % beat));
         bool hitWindow = !(modtime > 0.75f || modtime < 0.25f);
         
 

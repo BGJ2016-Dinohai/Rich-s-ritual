@@ -21,7 +21,8 @@ public class LoadLevel : MonoBehaviour {
     public GameObject player;
 
 	// Use this for initialization    
-	void Start () {
+	void Start ()
+    {
         if (null == levelController)
         {
             levelController = GetComponent<LevelLogic>();
@@ -30,6 +31,8 @@ public class LoadLevel : MonoBehaviour {
         playerController = GetComponent<PlayerMan>();
 
 		Debug.Log(Application.dataPath);
+
+
 
 		/* Windows-proofing the text. We assume no OS9 or earlier. *crosses fingers* */
 		string csvText = levelDescription.text.Replace("\r", "");
@@ -47,7 +50,8 @@ public class LoadLevel : MonoBehaviour {
 			++lineNumber;
 		}
         GameObject.FindGameObjectWithTag("MainCamera").transform.position = new Vector3(columnNumber / 2 * gridSize, -lineNumber / 2 * gridSize, -2);
-	}
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().orthographicSize = Math.Max((float)columnNumber / 2 * gridSize / 16 * 9, (float)lineNumber / 2 * gridSize);
+    }
 
 	private void addTile(int xPosition, int yPosition, string tileName)
 	{
@@ -58,12 +62,12 @@ public class LoadLevel : MonoBehaviour {
             vector.z = -1;
             playerController.instantiatePlayer(vector, xPosition, yPosition);            
         }
-        Debug.Log(string.Format("Should make tile of type {0} at <{1},{2}>", tile, xPosition, yPosition));
         if (tile != noTile)
         {
             Instantiate(tile, vector, Quaternion.identity);
         }
         levelController.setTile(xPosition, yPosition, tileName);
+        Debug.Log(tile.GetComponent<Renderer>().bounds.size.x);
 	}
 	
 	private Transform LookUpTile(string tileName)

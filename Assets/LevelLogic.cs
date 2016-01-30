@@ -23,15 +23,27 @@ public class LevelLogic : MonoBehaviour {
 
             for(int i = 0; i < height; ++i)
             {
-                level[rowNr][i] = "0";
+                level[rowNr][i] = "g";
             }          
         }
     }
 
+    public string getTile(int xPosition, int yPosition)
+    {
+        return level[xPosition][yPosition];
+    }
+
+
     public void setTile(int xPosition, int yPosition, string tile)
     {
+
+        if (tile.Equals(""))
+        {
+            tile = "g";
+        }
         bool error = false;
         string errorMsg = "Errors:";
+        Debug.Log(string.Format("Setting tile: x{0} y{1} {2}", xPosition, yPosition, tile));
         if(null == tile)
         {
             error = true;
@@ -63,6 +75,7 @@ public class LevelLogic : MonoBehaviour {
             throw new System.Exception(errorMsg);
         }
         level[xPosition][yPosition] = tile;
+        Debug.Log(string.Format("tile: {0} {1}", tile, level[xPosition][yPosition]));
     }
 
 	// Use this for initialization
@@ -83,9 +96,13 @@ public class LevelLogic : MonoBehaviour {
             case "":
                 retVal = true; break;
             case "g":
+                retVal = true; break;
             case "l":
+                retVal = true; break;
             case "n":
+                retVal = true; break;
             case "s":
+                retVal = true; break;
             case "m":
                 retVal = true; break;
             case "d":

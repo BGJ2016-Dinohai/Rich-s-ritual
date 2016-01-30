@@ -30,7 +30,7 @@ public class LoadLevel : MonoBehaviour {
         }
         playerController = GetComponent<PlayerMan>();
 
-		Debug.Log(Application.dataPath);
+		//Debug.Log(Application.dataPath);
 
 
 
@@ -67,6 +67,7 @@ public class LoadLevel : MonoBehaviour {
             Instantiate(tile, vector, Quaternion.identity);
         }
         levelController.setTile(xPosition, yPosition, tileName);
+
 	}
 	
 	private Transform LookUpTile(string tileName)

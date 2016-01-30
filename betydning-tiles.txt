@@ -5,6 +5,6 @@ m - Mål
 n - Nøkkel
 d - Dør
 v - Vegg
-0 - Utenfor brettet/ikke brukt
 l - Lava
-Blank felt betyr vanlig gulv
+g - Gulv
+Blank felt betyr utenfor brettet

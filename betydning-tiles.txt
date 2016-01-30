@@ -1,0 +1,10 @@
+﻿Tiles betydning:
+
+s - Start
+m - Mål
+n - Nøkkel
+d - Dør
+v - Vegg
+0 - Utenfor brettet/ikke brukt
+l - Lava
+Blank felt betyr vanlig gulv

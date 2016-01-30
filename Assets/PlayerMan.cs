@@ -4,24 +4,34 @@ using System.Collections.Generic;
 
 public class PlayerMan : MonoBehaviour {
 
+    int x;
+    int y;
+
     public Transform player;
     public Sprite playerSprite;
     public TextAsset moveText;
 
-    private Transform ply;
+    public Transform ply;
     private float spriteHeight;
     private string currentSeq;
 
     private IDictionary<string, string> moveList;
     private IDictionary<char, Vector3> moveVectors;
 
+    public void instantiatePlayer(Vector3 position, int xPosition, int yPosition)
+    {
+       x = xPosition;
+       y = yPosition;
+       ply = Instantiate(player, position, Quaternion.identity) as Transform;
+        Debug.Log(string.Format("Instantiated player at ({0},{1})", x, y));
+    }
     // Use this for initialization
     void Start () {
         currentSeq = "";
         float spriteHeight = playerSprite.bounds.size.y;
-        ply = Instantiate(player) as Transform;
+        
 
-        // oh jesus
+        // Translation of directions to move vectors
         moveList = new Dictionary<string, string>();
         moveVectors = new Dictionary<char, Vector3>();
         moveVectors['u'] = new Vector3(0, 1, 0);
@@ -65,7 +75,8 @@ public class PlayerMan : MonoBehaviour {
         float smooth = smoothstep(0.0f, 1.0f, tween);
         if (pattern.Length > 0)
         {
-            ply.position = oldPos + moveVectors[pattern[0]] * smooth;
+            var moveSpec = moveVectors[pattern[0]];
+            ply.position = oldPos + moveSpec * smooth;
         }
 
 

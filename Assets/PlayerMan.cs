@@ -7,29 +7,35 @@ public class PlayerMan : MonoBehaviour {
     int x;
     int y;
 
-    public Transform player;
-    public Sprite playerSprite;
+    public Transform playerSprite;
     public TextAsset moveText;
 
-    public Transform ply;
-    private float spriteHeight;
+    public Transform player;
+
+    public float bpm;
+
     private string currentSeq;
 
     private IDictionary<string, string> moveList;
     private IDictionary<char, Vector3> moveVectors;
+    private LevelLogic levelLogic;
+    private LoadLevel levelLoader;
+    private float beat;
+
 
     public void instantiatePlayer(Vector3 position, int xPosition, int yPosition)
     {
-       x = xPosition;
-       y = yPosition;
-       ply = Instantiate(player, position, Quaternion.identity) as Transform;
+        x = xPosition;
+        y = yPosition;
+        player = Instantiate(playerSprite, position, Quaternion.identity) as Transform;
         Debug.Log(string.Format("Instantiated player at ({0},{1})", x, y));
     }
+
     // Use this for initialization
     void Start () {
         currentSeq = "";
-        float spriteHeight = playerSprite.bounds.size.y;
-        
+        beat = 60.0f / bpm;
+
 
         // Translation of directions to move vectors
         moveList = new Dictionary<string, string>();
@@ -45,7 +51,9 @@ public class PlayerMan : MonoBehaviour {
             string[] mt = line.Split(':');
             moveList[mt[1]] = mt[0];
         }
-	}
+        levelLogic = GetComponent<LevelLogic>();
+        levelLoader = GetComponent<LoadLevel>();
+    }
 
     private char getMyKeyCode()
     {
@@ -68,26 +76,47 @@ public class PlayerMan : MonoBehaviour {
         {
             moving = true;
             pattern = p;
-            oldPos = ply.position;
+            oldPos = player.position;
         }
 
         tween += Time.deltaTime;
         float smooth = smoothstep(0.0f, 1.0f, tween);
+
+
         if (pattern.Length > 0)
         {
+
             var moveSpec = moveVectors[pattern[0]];
-            ply.position = oldPos + moveSpec * smooth;
-        }
+            int newX = x + (int)moveSpec.x;
+            int newY = y - (int)moveSpec.y;
 
-
-        if (tween > 1)
-        {
-            tween = 0;
-            oldPos = ply.position;
-            pattern = pattern.Substring(1);
-            if(pattern == "")
+            Debug.Log(string.Format("Trying: x{0} y{1} tile: {2}", newX, newY, levelLogic.getTile(newX, newY)));
+            if (!levelLogic.canWalk(newX, newY))
             {
-                moving = false;
+                Debug.Log(string.Format("Cant walk there: x{0} y{1} tile: {2}", newX, newY, levelLogic.getTile(newX, newY)));
+                oldPos = player.position;
+                pattern = pattern.Substring(1);
+                if (pattern == "")
+                {
+                    moving = false;
+                }
+                return;
+            }
+
+            player.position = oldPos + moveSpec * smooth * levelLoader.gridSize;
+            
+
+            if (tween > 1)
+            {
+                tween = 0;
+                x = newX;
+                y = newY;
+                oldPos = player.position;
+                pattern = pattern.Substring(1);
+                if (pattern == "")
+                {
+                    moving = false;
+                }
             }
         }
     }
@@ -99,6 +128,9 @@ public class PlayerMan : MonoBehaviour {
     }
 
 
+    bool isHit;
+    bool canHit;
+
 	void Update ()
     {
         if (moving)
@@ -107,25 +139,36 @@ public class PlayerMan : MonoBehaviour {
             return;
         }
 
+        float modtime = (1.0f / beat * ((Time.time - beat / 2) % beat));
+        bool hitWindow = !(modtime > 0.75f || modtime < 0.25f);
+        
+
         if (!Input.anyKeyDown){ return; }
+        if (!(getMyKeyCode() >= '1')) { return; }
+
+        if (!hitWindow)
+        {
+            Debug.Log("Miss");
+            currentSeq = "";
+            return;
+        }
+
+        if (currentSeq.Length == 4){
+        }
+
+        currentSeq += getMyKeyCode();
+
+        Debug.Log(string.Format("Hit: {0} Seq: {1} Length: {2}", getMyKeyCode(), currentSeq, currentSeq.Length));
         if (currentSeq.Length == 4)
         {
-            currentSeq = "";
-        }
-        if (getMyKeyCode() >= '1')
-        {
-            currentSeq += getMyKeyCode();
-            Debug.Log(string.Format("Hit: {0} Seq: {1} Length: {2}", getMyKeyCode(), currentSeq, currentSeq.Length));
-            if (currentSeq.Length == 4)
+            Debug.Log(string.Format("Length: {0} Seq: {1}", currentSeq.Length, currentSeq));
+            string value;
+            if (moveList.TryGetValue(currentSeq, out value))
             {
-                Debug.Log(string.Format("Length: {0} Seq: {1}", currentSeq.Length, currentSeq));
-                string value;
-                if (moveList.TryGetValue(currentSeq, out value))
-                {
-                    Debug.Log(string.Format("Move like this: {0}", value));
-                    move(value);
-                }
+                Debug.Log(string.Format("Move like this: {0}", value));
+                move(value);
             }
+            currentSeq = "";
         }
     }
 }

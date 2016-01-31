@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Rhythm : MonoBehaviour {
     public float bpm;
@@ -15,7 +16,7 @@ public class Rhythm : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        SpriteRenderer r = GetComponent<SpriteRenderer>();
+        Image r = GetComponent<Image>();
         float modtime = 1-(1.0f/beat * ((Time.time+offset)%beat));
         r.color = new Color(1, 1, 1, modtime);
     }

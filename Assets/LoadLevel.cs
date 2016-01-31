@@ -6,8 +6,6 @@ public class LoadLevel : MonoBehaviour {
 	public LevelLogic levelController;
 	public PlayerMan playerController;
 
-    public static TextAsset nextLevel = null;
-
 	public TextAsset levelDescription;
 
 	public Transform wallTile;
@@ -37,9 +35,8 @@ public class LoadLevel : MonoBehaviour {
 		}
 		playerController = GetComponent<PlayerMan>();
 
-        if(nextLevel != null){
-            levelDescription = nextLevel;
-            nextLevel = null;
+        if(LevelManager.isActive()){
+            levelDescription = LevelManager.getCurrentLevel();
         }
 
 		/* Windows-proofing the text. We assume no OS9 or earlier. *crosses fingers* */

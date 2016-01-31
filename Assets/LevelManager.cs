@@ -6,19 +6,22 @@ public class LevelManager : MonoBehaviour
 
     public TextAsset[] levels;
 
-    public static TextAsset[] sLevelList;
-    public static int levelIndex;
+    private static TextAsset[] sLevelList;
+    private static int levelIndex;
+    private static bool active;
 
     // Use this for initialization
     void Start()
     {
         sLevelList = levels;
         levelIndex = 0;
+        active = false;
     }
 
     public static void nextLevel(int level = -1)
     {
-        if(level > -1)
+        active = true;
+        if (level > -1)
         {
             levelIndex = level;
         }
@@ -28,14 +31,22 @@ public class LevelManager : MonoBehaviour
             Application.LoadLevel("mainmenu");
         }
         Debug.Log(string.Format("Loading level: {0}", levelIndex));
-        LoadLevel.nextLevel = sLevelList[levelIndex];
         levelIndex++;
         Application.LoadLevel("LevelLoadingScene");
     }
 
+    public static bool isActive()
+    {
+        return active;
+    }
+
+    public static TextAsset getCurrentLevel()
+    {
+        return sLevelList[levelIndex-1];
+    }
+
     public static void reloadLevel()
     {
-        LoadLevel.nextLevel = sLevelList[levelIndex-1];
         Application.LoadLevel("LevelLoadingScene");
     }
 }

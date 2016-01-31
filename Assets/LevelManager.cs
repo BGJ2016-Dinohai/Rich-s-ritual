@@ -27,7 +27,7 @@ public class LevelManager : MonoBehaviour
         {
             Application.LoadLevel("mainmenu");
         }
-
+        Debug.Log(string.Format("Loading level: {0}", levelIndex));
         LoadLevel.nextLevel = sLevelList[levelIndex];
         levelIndex++;
         Application.LoadLevel("LevelLoadingScene");

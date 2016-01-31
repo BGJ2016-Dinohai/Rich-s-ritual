@@ -5,7 +5,7 @@ public class MenuButtonHandler : MonoBehaviour {
 
 	public void StartGame()
     {
-        Application.LoadLevel("LevelLoadingScene");
+        LevelManager.nextLevel();
     }
 
     public void ShowControls()

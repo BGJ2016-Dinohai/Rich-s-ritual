@@ -1,10 +1,22 @@
 fileFormatVersion: 2
 guid: 8a0c1339dad79426ea3a7bc008730f24
-timeCreated: 1454180840
+timeCreated: 1454239652
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - levelController: {instanceID: 0}
+  - playerController: {instanceID: 0}
+  - levelDescription: {instanceID: 0}
+  - wallTile: {fileID: 465306, guid: fc22edf84695f0a46945b5790404cefa, type: 2}
+  - floorTile: {fileID: 447460, guid: ee5718e454122455a9e5792570e9b0fc, type: 2}
+  - lavaTile: {fileID: 489436, guid: 9cc574398aa449742847411509d9bde9, type: 2}
+  - doorTile: {fileID: 454186, guid: 4c86e63163f83b24683babe2080df770, type: 2}
+  - goalTile: {fileID: 409860, guid: f3dfdb3f1e37f634db5c5a1b9fa97960, type: 2}
+  - startTile: {fileID: 419384, guid: fd254be600293644eb49a097549ef39e, type: 2}
+  - keyTile: {fileID: 444868, guid: 4ce7f99f499caf449939f7dba1f591e8, type: 2}
+  - noTile: {instanceID: 0}
+  - player: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

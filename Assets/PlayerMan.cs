@@ -88,10 +88,11 @@ public class PlayerMan : MonoBehaviour {
             int newY = y - (int)moveSpec.y;
 
             tween += Time.deltaTime;
-            float smooth;
-
-            Debug.Log(string.Format("Trying: x{0} y{1} tile: {2}", newX, newY, levelLogic.getTile(newX, newY)));
-            if (!levelLogic.canWalk(newX, newY))
+        	float smooth;
+            
+			Debug.Log(string.Format("Trying: x{0} y{1} tile: {2}", newX, newY, levelLogic.getTile(newX, newY)));
+            
+			if (!levelLogic.canWalk(newX, newY))
             {   
                 /*
                 Debug.Log(string.Format("Cant walk there: x{0} y{1} tile: {2}", newX, newY, levelLogic.getTile(newX, newY)));
@@ -104,7 +105,8 @@ public class PlayerMan : MonoBehaviour {
                 return;*/
                 smooth = smoothbumpstep(0.0f, 1.0f, tween);
             }
-            else
+            
+			else
             {
                 smooth = smoothstep(0.0f, 1.0f, tween);
             }

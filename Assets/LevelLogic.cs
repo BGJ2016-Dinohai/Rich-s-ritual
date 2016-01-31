@@ -43,7 +43,6 @@ public class LevelLogic : MonoBehaviour {
         }
         bool error = false;
         string errorMsg = "Errors:";
-        Debug.Log(string.Format("Setting tile: x{0} y{1} {2}", xPosition, yPosition, tile));
         if(null == tile)
         {
             error = true;
@@ -75,7 +74,6 @@ public class LevelLogic : MonoBehaviour {
             throw new System.Exception(errorMsg);
         }
         level[xPosition][yPosition] = tile;
-        Debug.Log(string.Format("tile: {0} {1}", tile, level[xPosition][yPosition]));
     }
 
 	// Use this for initialization

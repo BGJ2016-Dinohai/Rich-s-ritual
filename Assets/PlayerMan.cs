@@ -79,6 +79,12 @@ public class PlayerMan : MonoBehaviour {
             oldPos = player.position;
         }
 
+        if (levelLogic.isDeadly(x, y))
+        {
+            Debug.Log("Restart lvl");
+            LevelManager.reloadLevel();
+            return;
+        }
 
         if (pattern.Length > 0)
         {
@@ -165,13 +171,15 @@ public class PlayerMan : MonoBehaviour {
             levelLogic.replaceTile(x, y, "g");
         }
 
-        if (levelLogic.isDeadly(x, y))
-        {
-            LevelManager.reloadLevel();
-        }
         if (levelLogic.isGoal(x, y))
         {
             LevelManager.nextLevel();
+        }
+
+        if (levelLogic.isDeadly(x, y))
+        {
+            Debug.Log("Restart lvl");
+            LevelManager.reloadLevel();
         }
 
         float modtime = (1.0f / beat * (((Time.time+offset) - beat / 2) % beat));

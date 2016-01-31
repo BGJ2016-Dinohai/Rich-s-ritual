@@ -1,4 +1,8 @@
-uuu:1112
-uur:1132
-ld:2324
-ddr:4412
+dllu:3112
+drdr:3434
+lldr:1134
+rddr:4334
+urdr:2434
+urru:2442
+urul:2421
+uull:2211

@@ -53,7 +53,7 @@ public class LoadLevel : MonoBehaviour {
 		}
 		++lineNumber;
 		}
-		GameObject.FindGameObjectWithTag("MainCamera").transform.position = new Vector3(columnNumber / 2 * gridSize, -lineNumber / 2 * gridSize, -2);
+		GameObject.FindGameObjectWithTag("MainCamera").transform.position = new Vector3(columnNumber / 2 * gridSize, -lineNumber / 2 * gridSize, -3);
 		GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().orthographicSize = Math.Max((float)columnNumber / 2 * gridSize / 16 * 9, (float)lineNumber / 2 * gridSize);
 	}
 

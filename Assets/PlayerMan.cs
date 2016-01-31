@@ -165,6 +165,15 @@ public class PlayerMan : MonoBehaviour {
             levelLogic.replaceTile(x, y, "g");
         }
 
+        if (levelLogic.isDeadly(x, y))
+        {
+            LevelManager.reloadLevel();
+        }
+        if (levelLogic.isGoal(x, y))
+        {
+            LevelManager.nextLevel();
+        }
+
         float modtime = (1.0f / beat * (((Time.time+offset) - beat / 2) % beat));
         bool hitWindow = !(modtime > 0.75f || modtime < 0.25f);
         

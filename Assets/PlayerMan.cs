@@ -7,14 +7,13 @@ public class PlayerMan : MonoBehaviour {
     int x;
     int y;
 
+    public Transform playerSprite;
     public TextAsset moveText;
-    
-    private Animator playerAnim;
+
     public Transform player;
-    public GameObject playerObject;
 
     public float bpm;
-    
+    private float offset;
     private string currentSeq;
 
     private IDictionary<string, string> moveList;
@@ -28,9 +27,7 @@ public class PlayerMan : MonoBehaviour {
     {
         x = xPosition;
         y = yPosition;
-
-        player = Instantiate(playerObject, position, Quaternion.identity) as Transform;
-
+        player = Instantiate(playerSprite, position, Quaternion.identity) as Transform;
         Debug.Log(string.Format("Instantiated player at ({0},{1})", x, y));
     }
 
@@ -38,7 +35,7 @@ public class PlayerMan : MonoBehaviour {
     void Start () {
         currentSeq = "";
         beat = 60.0f / bpm;
-
+        offset = Time.time % (beat);
 
         // Translation of directions to move vectors
         moveList = new Dictionary<string, string>();
@@ -54,9 +51,8 @@ public class PlayerMan : MonoBehaviour {
             string[] mt = line.Split(':');
             moveList[mt[1]] = mt[0];
         }
-        levelLogic = GetComponent<LevelLogic>();
         levelLoader = GetComponent<LoadLevel>();
-        Debug.Log(levelLogic.level[1][1]);
+		levelLogic = levelLoader.GetLevelController ();
     }
 
     private char getMyKeyCode()
@@ -143,7 +139,7 @@ public class PlayerMan : MonoBehaviour {
             return;
         }
 
-        float modtime = (1.0f / beat * ((Time.time - beat / 2) % beat));
+        float modtime = (1.0f / beat * (((Time.time+offset) - beat / 2) % beat));
         bool hitWindow = !(modtime > 0.75f || modtime < 0.25f);
         
 

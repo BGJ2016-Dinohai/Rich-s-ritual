@@ -35,9 +35,6 @@ public class LoadLevel : MonoBehaviour {
 		}
 		playerController = GetComponent<PlayerMan>();
 
-		//Debug.Log(Application.dataPath);
-
-
 		/* Windows-proofing the text. We assume no OS9 or earlier. *crosses fingers* */
 		string csvText = levelDescription.text.Replace("\r", "");
 

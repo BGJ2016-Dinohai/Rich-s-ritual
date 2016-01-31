@@ -90,10 +90,8 @@ public class PlayerMan : MonoBehaviour {
             int newX = x + (int)moveSpec.x;
             int newY = y - (int)moveSpec.y;
 
-            Debug.Log(string.Format("Trying: x{0} y{1} tile: {2}", newX, newY, levelLogic.getTile(newX, newY)));
             if (!levelLogic.canWalk(newX, newY))
             {
-                Debug.Log(string.Format("Cant walk there: x{0} y{1} tile: {2}", newX, newY, levelLogic.getTile(newX, newY)));
                 oldPos = player.position;
                 pattern = pattern.Substring(1);
                 if (pattern == "")

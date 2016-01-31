@@ -6,6 +6,8 @@ public class LoadLevel : MonoBehaviour {
 	public LevelLogic levelController;
 	public PlayerMan playerController;
 
+    public static TextAsset nextLevel = null;
+
 	public TextAsset levelDescription;
 
 	public Transform wallTile;
@@ -34,6 +36,11 @@ public class LoadLevel : MonoBehaviour {
 			levelController.createEmptyLevel(16, 16);
 		}
 		playerController = GetComponent<PlayerMan>();
+
+        if(nextLevel != null){
+            levelDescription = nextLevel;
+            nextLevel = null;
+        }
 
 		/* Windows-proofing the text. We assume no OS9 or earlier. *crosses fingers* */
 		string csvText = levelDescription.text.Replace("\r", "");

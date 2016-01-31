@@ -121,6 +121,11 @@ public class LevelLogic : MonoBehaviour {
         return level[x][y].Equals("n");
     }
 
+    public bool isGoal(int x, int y)
+    {
+        return level[x][y].Equals("m");
+    }
+
     public void replaceTile(int x, int y, string tileName)
     {
         level[x][y] = tileName;

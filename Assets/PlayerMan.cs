@@ -102,7 +102,7 @@ public class PlayerMan : MonoBehaviour {
                     moving = false;
                 }
                 return;*/
-                smooth = bumpstep(0.0f, 1.0f, tween);
+                smooth = smoothbumpstep(0.0f, 1.0f, tween);
             }
             else
             {
@@ -136,10 +136,10 @@ public class PlayerMan : MonoBehaviour {
         return x * x * (3 - 2 * x);
     }
 
-    private float bumpstep(float edge0, float edge1, float x)
+    private float smoothbumpstep(float edge0, float edge1, float x)
     {
         x = Mathf.Clamp((x - edge0) / (edge1 - edge0), 0.0f, 1.0f);
-        return x - x * x;
+        return /*x - x * x; */0.125f * (Mathf.Cos(2 * Mathf.PI * (x + 0.5f)) + 1);
     }
 
 

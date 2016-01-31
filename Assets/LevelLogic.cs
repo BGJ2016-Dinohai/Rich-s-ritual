@@ -123,7 +123,7 @@ public class LevelLogic : MonoBehaviour {
 
     public bool isGoal(int x, int y)
     {
-        return level[x][y].Equals("m");
+        return level[x][y].Equals("m") && hasKey;
     }
 
     public void replaceTile(int x, int y, string tileName)

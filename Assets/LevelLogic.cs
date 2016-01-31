@@ -5,7 +5,7 @@ public class LevelLogic : MonoBehaviour {
     private int width;
     private int height;
 
-    string[][] level;
+    public string[][] level;
     private bool hasKey;
     public void setLevel(string[][] level)
     {

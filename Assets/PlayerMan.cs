@@ -79,9 +79,6 @@ public class PlayerMan : MonoBehaviour {
             oldPos = player.position;
         }
 
-        tween += Time.deltaTime;
-        float smooth = smoothstep(0.0f, 1.0f, tween);
-
 
         if (pattern.Length > 0)
         {
@@ -90,15 +87,28 @@ public class PlayerMan : MonoBehaviour {
             int newX = x + (int)moveSpec.x;
             int newY = y - (int)moveSpec.y;
 
-            if (!levelLogic.canWalk(newX, newY))
-            {
+            tween += Time.deltaTime;
+        	float smooth;
+            
+			Debug.Log(string.Format("Trying: x{0} y{1} tile: {2}", newX, newY, levelLogic.getTile(newX, newY)));
+            
+			if (!levelLogic.canWalk(newX, newY))
+            {   
+                /*
+                Debug.Log(string.Format("Cant walk there: x{0} y{1} tile: {2}", newX, newY, levelLogic.getTile(newX, newY)));
                 oldPos = player.position;
                 pattern = pattern.Substring(1);
                 if (pattern == "")
                 {
                     moving = false;
                 }
-                return;
+                return;*/
+                smooth = smoothbumpstep(0.0f, 1.0f, tween);
+            }
+            
+			else
+            {
+                smooth = smoothstep(0.0f, 1.0f, tween);
             }
 
             player.position = oldPos + moveSpec * smooth * levelLoader.gridSize;
@@ -107,8 +117,11 @@ public class PlayerMan : MonoBehaviour {
             if (tween > 1)
             {
                 tween = 0;
-                x = newX;
-                y = newY;
+                if (levelLogic.canWalk(newX, newY))
+                {
+                    x = newX;
+                    y = newY;
+                }
                 oldPos = player.position;
                 pattern = pattern.Substring(1);
                 if (pattern == "")
@@ -123,6 +136,12 @@ public class PlayerMan : MonoBehaviour {
     {
         x = Mathf.Clamp((x - edge0) / (edge1 - edge0), 0.0f, 1.0f);
         return x * x * (3 - 2 * x);
+    }
+
+    private float smoothbumpstep(float edge0, float edge1, float x)
+    {
+        x = Mathf.Clamp((x - edge0) / (edge1 - edge0), 0.0f, 1.0f);
+        return /*x - x * x; */0.125f * (Mathf.Cos(2 * Mathf.PI * (x + 0.5f)) + 1);
     }
 
 

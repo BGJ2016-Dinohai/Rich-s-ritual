@@ -10,7 +10,7 @@ public class PlayerMan : MonoBehaviour {
     public TextAsset moveText;
     
     private Animator playerAnim;
-    private Transform player;
+    public Transform player;
     public GameObject playerObject;
 
     public float bpm;
@@ -56,6 +56,7 @@ public class PlayerMan : MonoBehaviour {
         }
         levelLogic = GetComponent<LevelLogic>();
         levelLoader = GetComponent<LoadLevel>();
+        Debug.Log(levelLogic.level[1][1]);
     }
 
     private char getMyKeyCode()

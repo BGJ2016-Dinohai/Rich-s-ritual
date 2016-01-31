@@ -156,6 +156,15 @@ public class PlayerMan : MonoBehaviour {
             return;
         }
 
+        if (levelLogic.isKey(x, y))
+        {
+            levelLogic.pickedUpKey();
+            GameObject keyObject = GameObject.Find("key(Clone)");
+            Instantiate(levelLoader.floorTile, keyObject.transform.position, Quaternion.identity);
+            GameObject.Destroy(keyObject);
+            levelLogic.replaceTile(x, y, "g");
+        }
+
         float modtime = (1.0f / beat * (((Time.time+offset) - beat / 2) % beat));
         bool hitWindow = !(modtime > 0.75f || modtime < 0.25f);
         

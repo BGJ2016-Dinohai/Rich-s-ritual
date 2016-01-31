@@ -116,9 +116,18 @@ public class LevelLogic : MonoBehaviour {
         return level[x][y].Equals("l");
     }
 
+    public bool isKey(int x, int y)
+    {
+        return level[x][y].Equals("n");
+    }
 
-	// Update is called once per frame
-	void Update () {
+    public void replaceTile(int x, int y, string tileName)
+    {
+        level[x][y] = tileName;
+    }
+
+    // Update is called once per frame
+    void Update () {
 	
 	}
 }

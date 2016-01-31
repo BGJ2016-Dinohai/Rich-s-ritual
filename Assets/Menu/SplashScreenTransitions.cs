@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class SplashScreenTransitions : MonoBehaviour {
@@ -19,7 +18,7 @@ public class SplashScreenTransitions : MonoBehaviour {
         int index = (int)(Time.time/splashLength);
         if(index >= sprites.Length)
         {
-            SceneManager.LoadScene(nextSceneName);
+            Application.LoadLevel(nextSceneName);
             return;
         }
         spriteRenderer.sprite = sprites[index];

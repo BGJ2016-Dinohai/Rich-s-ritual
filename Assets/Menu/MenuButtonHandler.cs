@@ -1,18 +1,16 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class MenuButtonHandler : MonoBehaviour {
 
 	public void StartGame()
     {
-        
-        SceneManager.LoadScene("LevelLoadingScene");
+        Application.LoadLevel("LevelLoadingScene");
     }
 
     public void ShowControls()
     {
-        SceneManager.LoadScene("controls");
+        Application.LoadLevel("controls");
     }
 
     public void QuitGame()
